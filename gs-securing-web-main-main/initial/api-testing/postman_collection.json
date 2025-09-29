@@ -1,0 +1,91 @@
+{
+  "info": {
+    "name": "Securing Web API Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for Users + Blogs + Auth JWT"
+  },
+  "item": [
+    {
+      "name": "Auth - Login (admin)",
+      "request": {
+        "method": "POST",
+        "header": [ {"key": "Content-Type", "value": "application/json"} ],
+        "body": {"mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"adminpass\"\n}"},
+        "url": {"raw": "http://localhost:8080/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","auth","login"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Login (user)",
+      "request": {
+        "method": "POST",
+        "header": [ {"key": "Content-Type", "value": "application/json"} ],
+        "body": {"mode": "raw", "raw": "{\n  \"username\": \"user\",\n  \"password\": \"password\"\n}"},
+        "url": {"raw": "http://localhost:8080/api/auth/login", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","auth","login"]}
+      },
+      "response": []
+    },
+    {
+      "name": "User - List (ADMIN)",
+      "request": {
+        "method": "GET",
+        "header": [ {"key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}"} ],
+        "url": {"raw": "http://localhost:8080/api/users", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","users"]}
+      },
+      "response": []
+    },
+    {
+      "name": "User - Create (ADMIN)",
+      "request": {
+        "method": "POST",
+        "header": [ {"key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}"}, {"key": "Content-Type", "value": "application/json"} ],
+        "body": {"mode": "raw", "raw": "{\n  \"username\": \"tester\",\n  \"roles\": [\"USER\"]\n}"},
+        "url": {"raw": "http://localhost:8080/api/users", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","users"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Blog - List (USER sees own / ADMIN sees all)",
+      "request": {
+        "method": "GET",
+        "header": [ {"key": "Authorization", "value": "Bearer {{USER_TOKEN}}"} ],
+        "url": {"raw": "http://localhost:8080/api/blogs", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","blogs"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Blog - Create (USER)",
+      "request": {
+        "method": "POST",
+        "header": [ {"key": "Authorization", "value": "Bearer {{USER_TOKEN}}"}, {"key": "Content-Type", "value": "application/json"} ],
+        "body": {"mode": "raw", "raw": "{\n  \"title\": \"First Blog\",\n  \"content\": \"Demo content\"\n}"},
+        "url": {"raw": "http://localhost:8080/api/blogs", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","blogs"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Blog - Update (USER owner)",
+      "request": {
+        "method": "PUT",
+        "header": [ {"key": "Authorization", "value": "Bearer {{USER_TOKEN}}"}, {"key": "Content-Type", "value": "application/json"} ],
+        "body": {"mode": "raw", "raw": "{\n  \"title\": \"First Blog Updated\"\n}"},
+        "url": {"raw": "http://localhost:8080/api/blogs/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","blogs","1"]}
+      },
+      "response": []
+    },
+    {
+      "name": "Blog - Delete (ADMIN only)",
+      "request": {
+        "method": "DELETE",
+        "header": [ {"key": "Authorization", "value": "Bearer {{ADMIN_TOKEN}}"} ],
+        "url": {"raw": "http://localhost:8080/api/blogs/1", "protocol": "http", "host": ["localhost"], "port": "8080", "path": ["api","blogs","1"]}
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {"key": "ADMIN_TOKEN", "value": ""},
+    {"key": "USER_TOKEN", "value": ""}
+  ]
+}
+
